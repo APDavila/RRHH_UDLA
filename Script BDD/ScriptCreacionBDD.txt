@@ -1,0 +1,259 @@
+------------------------------------------------------------------------------------------CREACION BDD-------------------------------------------------------------------------------------------------------
+
+USE [master]
+GO
+
+/****** Object:  Database [RecursosHumanos]    Script Date: 30/1/2025 4:42:13 ******/
+CREATE DATABASE [RecursosHumanos]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'RecursosHumanos', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\RecursosHumanos.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'RecursosHumanos_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\RecursosHumanos_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [RecursosHumanos].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+
+ALTER DATABASE [RecursosHumanos] SET ANSI_NULL_DEFAULT OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET ANSI_NULLS OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET ANSI_PADDING OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET ANSI_WARNINGS OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET ARITHABORT OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET AUTO_CLOSE ON 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET AUTO_SHRINK OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET AUTO_UPDATE_STATISTICS ON 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET CURSOR_DEFAULT  GLOBAL 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET NUMERIC_ROUNDABORT OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET QUOTED_IDENTIFIER OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET RECURSIVE_TRIGGERS OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET  ENABLE_BROKER 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET TRUSTWORTHY OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET PARAMETERIZATION SIMPLE 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET READ_COMMITTED_SNAPSHOT ON 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET HONOR_BROKER_PRIORITY OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET RECOVERY SIMPLE 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET  MULTI_USER 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET PAGE_VERIFY CHECKSUM  
+GO
+
+ALTER DATABASE [RecursosHumanos] SET DB_CHAINING OFF 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET DELAYED_DURABILITY = DISABLED 
+GO
+
+ALTER DATABASE [RecursosHumanos] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+
+ALTER DATABASE [RecursosHumanos] SET QUERY_STORE = ON
+GO
+
+ALTER DATABASE [RecursosHumanos] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+
+ALTER DATABASE [RecursosHumanos] SET  READ_WRITE 
+GO
+
+
+------------------------------------------------------------------------------------------Tabla PEOPLE-------------------------------------------------------------------------------------------------------
+USE [RecursosHumanos]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[People](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[Email] [nvarchar](max) NOT NULL,
+	[Age] [int] NOT NULL,
+	[Address] [nvarchar](max) NOT NULL,
+	[GenderCode] [nvarchar](450) NOT NULL,
+	[StatusCode] [nvarchar](450) NOT NULL,
+ CONSTRAINT [PK_People] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[People]  WITH CHECK ADD  CONSTRAINT [FK_People_Genders_GenderCode] FOREIGN KEY([GenderCode])
+REFERENCES [dbo].[Genders] ([Code])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[People] CHECK CONSTRAINT [FK_People_Genders_GenderCode]
+GO
+
+ALTER TABLE [dbo].[People]  WITH CHECK ADD  CONSTRAINT [FK_People_Statuses_StatusCode] FOREIGN KEY([StatusCode])
+REFERENCES [dbo].[Statuses] ([Code])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[People] CHECK CONSTRAINT [FK_People_Statuses_StatusCode]
+GO
+------------------------------------------------------------------------------------------Tabla GENDER-------------------------------------------------------------------------------------------------------
+USE [RecursosHumanos]
+GO
+
+/****** Object:  Table [dbo].[Genders]    Script Date: 30/1/2025 4:43:04 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Genders](
+	[Code] [nvarchar](450) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_Genders] PRIMARY KEY CLUSTERED 
+(
+	[Code] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+
+------------------------------------------------------------------------------------------Tabla STATUS-------------------------------------------------------------------------------------------------------
+
+USE [RecursosHumanos]
+GO
+
+/****** Object:  Table [dbo].[Statuses]    Script Date: 30/1/2025 4:44:02 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Statuses](
+	[Code] [nvarchar](450) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_Statuses] PRIMARY KEY CLUSTERED 
+(
+	[Code] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+------------------------------------------------------------------------------------------INSERT PEOPLE-------------------------------------------------------------------------------------------------------
+
+USE [RecursosHumanos]
+GO
+
+INSERT INTO [dbo].[People] ([Name], [Email], [Age], [Address], [GenderCode], [StatusCode]) 
+VALUES
+('Juan Pérez', 'juan.perez@mail.com', 30, 'Av. Los Olivos, Lima', 'M', 'A'),
+('María Rodríguez', 'maria.rodriguez@mail.com', 28, 'Calle El Sol, Bogotá', 'F', 'A'),
+('Carlos Gómez', 'carlos.gomez@mail.com', 35, 'Calle 5 de Febrero, Buenos Aires', 'M', 'A'),
+('Ana López', 'ana.lopez@mail.com', 24, 'Calle Salamanca, Madrid', 'F', 'A'),
+('Luis García', 'luis.garcia@mail.com', 40, 'Calle México, Caracas', 'M', 'A'),
+('Patricia Fernández', 'patricia.fernandez@mail.com', 33, 'Av. 9 de Julio, Buenos Aires', 'F', 'A'),
+('Ricardo Martínez', 'ricardo.martinez@mail.com', 27, 'Calle 10, Santiago', 'M', 'A'),
+('Lucía González', 'lucia.gonzalez@mail.com', 22, 'Calle de la Paz, Ciudad de México', 'F', 'A'),
+('Miguel Sánchez', 'miguel.sanchez@mail.com', 31, 'Calle 20, Lima', 'M', 'A'),
+('Elena Torres', 'elena.torres@mail.com', 29, 'Av. El Bosque, Bogotá', 'F', 'A'),
+('José Díaz', 'jose.diaz@mail.com', 26, 'Av. Los Andes, Quito', 'M', 'A'),
+('Sofía Martínez', 'sofia.martinez@mail.com', 32, 'Calle Los Cedros, Monterrey', 'F', 'A'),
+('Jorge Hernández', 'jorge.hernandez@mail.com', 38, 'Calle Colón, San Salvador', 'M', 'A'),
+('Carmen Morales', 'carmen.morales@mail.com', 34, 'Av. Central, Caracas', 'F', 'A'),
+('Fernando Romero', 'fernando.romero@mail.com', 45, 'Calle Bolívar, Asunción', 'M', 'A'),
+('Adriana Cruz', 'adriana.cruz@mail.com', 23, 'Calle del Mar, Valparaíso', 'F', 'A'),
+('David Pérez', 'david.perez@mail.com', 50, 'Calle La Merced, Lima', 'M', 'A'),
+('Marina Sánchez', 'marina.sanchez@mail.com', 28, 'Av. Los Arcos, Medellín', 'F', 'A'),
+('Ricardo López', 'ricardo.lopez@mail.com', 36, 'Calle Las Palmas, Buenos Aires', 'M', 'A'),
+('Isabel Rodríguez', 'isabel.rodriguez@mail.com', 41, 'Calle 5 de Mayo, Ciudad de México', 'F', 'A');
+
+GO
+
+------------------------------------------------------------------------------------------INSERT GENDERS-------------------------------------------------------------------------------------------------------
+
+USE [RecursosHumanos]
+GO
+
+INSERT INTO [dbo].[Genders] ([Code], [Description])
+VALUES
+('M', 'Masculino'),
+('F', 'Femenino'),
+('B', 'No Binario');
+
+GO
+
+------------------------------------------------------------------------------------------INSERT STATUS-------------------------------------------------------------------------------------------------------
+USE [RecursosHumanos]
+GO
+
+INSERT INTO [dbo].[Statuses] ([Code], [Description])
+VALUES
+('A', 'Activo'),
+('I', 'Inactivo');
+
+GO

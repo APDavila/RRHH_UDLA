@@ -1,0 +1,141 @@
+/* Estilos generales */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100%;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo para el SplashScreen */
+.splash-screen {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  height: 100vh;           
+  width: 100vw;            
+  background-color: white; 
+  position: fixed;        
+  top: 0;
+  left: 0;
+  text-align: center;   
+  flex-direction: column;   
+}
+
+.splash-screen h1 {
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ajustar tamaño del GIF */
+.loading-gif {
+  width: 500px;  
+  height: auto;   
+  margin-top: 20px;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+  .loading-gif {
+      width: 200px;  
+  }
+}
+
+/* Contenedor principal en pantalla dividida */
+.split-screen {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+/* Panel de menú lateral */
+.menu-panel {
+  width: 250px;
+  background: #333;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
+  width: 100vw;
+  text-align: center;
+}
+
+.menu-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.menu button {
+  width: 250px; 
+  margin: 10px 0; 
+  background: #007bff;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.menu button:hover {
+  background: #0056b3;
+}
+
+/* RESPONSIVE DESIGN: Mejor visualización en pantallas grandes */
+@media (min-width: 768px) {
+  .menu {
+      height: 100vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu button {
+      width: 80%; 
+  }
+}
+
+/* Contenedor de contenido */
+.content-panel {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+  .split-screen {
+      flex-direction: column; 
+  }
+
+  .menu-panel {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 10px;
+  }
+
+  .menu button {
+      width: auto;
+      padding: 8px;
+      font-size: 14px;
+  }
+
+  .content-panel {
+      flex-grow: 1;
+  }
+}

@@ -1,0 +1,105 @@
+.external-users {
+    margin: 20px;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+}
+
+.external-users h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 0; 
+}
+
+.user-list {
+    max-height: 500px;
+    overflow-y: auto;
+    margin-top: 20px;
+}
+
+.user-items {
+    list-style-type: none;
+    padding: 0;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+    cursor: pointer; 
+}
+
+.user-item:hover {
+    background-color: #f0f0f0;
+}
+
+.user-icon {
+    font-size: 40px;
+    margin-right: 10px;
+    color: #007bff; 
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.gender-icon {
+    font-size: 18px;
+    color: gray;
+}
+
+.user-item.inactive {
+    opacity: 0.6;
+    background-color: #f8f9fa;
+}
+
+.user-item.active {
+    background-color: #e0f7fa; 
+}
+
+.clickable-icon {
+    font-size: 20px;
+    color: green;
+    margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+    .external-users {
+        padding: 5px; 
+    }
+
+    .user-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .user-icon {
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+
+    .user-info {
+        align-items: flex-start;
+    }
+
+    .user-name {
+        font-size: 16px;
+    }
+
+    .gender-icon {
+        font-size: 16px;
+    }
+
+    .external-users h1 {
+        margin-top: 0;
+    }
+}

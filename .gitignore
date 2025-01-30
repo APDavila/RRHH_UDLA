@@ -1,0 +1,35 @@
+
+```gitignore
+# Backend
+/bin
+/obj
+/.vs
+.vscode/
+.idea/
+
+# Frontend
+/node_modules/
+/build/
+
+/.env
+
+# Archivos específicos de Visual Studio
+.vs2019/
+/.vs2017/
+/.vs/
+
+# Otros archivos
+npm-debug.log
+yarn-error.log
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+
+
+
+
+
+
+
